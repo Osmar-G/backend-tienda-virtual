@@ -10,27 +10,33 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       id_usuario: {
-        type: Sequelize.INTEGER
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'tbc_usuarios', // nombre de la tabla
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
       estado: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
+        defaultValue: 'activo'
       },
       fecha_creacion: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.NOW
       },
       total: {
-        type: Sequelize.FLOAT
-      },
-      createdAt: {
+        type: Sequelize.FLOAT,
         allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
+        defaultValue: 0
       }
     });
   },
+
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('tbb_carritos');
   }

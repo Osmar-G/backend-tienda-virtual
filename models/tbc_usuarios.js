@@ -4,11 +4,20 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Usuario extends Model {
     static associate(models) {
-      // relaciones aquí
+      Usuario.hasMany(models.tbb_carritos, {
+        foreignKey: 'id_usuario',
+        as: 'tbb_carritos'
+      });
     }
   }
 
   Usuario.init({
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true
+    },
+
     nombre: {
       type: DataTypes.STRING(100),
       allowNull: false
@@ -26,7 +35,10 @@ module.exports = (sequelize, DataTypes) => {
 
     email: {
       type: DataTypes.STRING(100),
-      allowNull: false
+      allowNull: false,
+      validate: {
+        isEmail: true
+      }
     },
 
     password: {
@@ -42,14 +54,15 @@ module.exports = (sequelize, DataTypes) => {
 
     fecha_registro: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
+      defaultValue: DataTypes.NOW
     }
 
   }, {
     sequelize,
-    modelName: 'Usuario',
+    modelName: 'tbc_usuarios',
     tableName: 'tbc_usuarios',
-    timestamps: false
+    timestamps: true
   });
 
   return Usuario;

@@ -1,18 +1,18 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class tbc_categoria extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
-    }
+    
+   static associate(models) {
+  tbc_categoria.hasMany(models.tbb_producto, {
+    foreignKey: 'id_categoria',
+    as: 'productos'
+  });
+}
   }
+  
+
   tbc_categoria.init({
     nombreCategoria: {
       type: DataTypes.STRING(30),
@@ -21,6 +21,9 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'tbc_categoria',
+    tableName: 'tbc_categoria', // ✅ IMPORTANTE
+    timestamps: true // solo si tu migración tiene createdAt/updatedAt
   });
+
   return tbc_categoria;
 };
