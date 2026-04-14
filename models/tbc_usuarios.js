@@ -4,9 +4,9 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Usuario extends Model {
     static associate(models) {
-      Usuario.hasMany(models.tbb_carritos, {
+      Usuario.hasMany(models.tbb_carrito, {
         foreignKey: 'id_usuario',
-        as: 'tbb_carritos'
+        as: 'tbb_carrito'
       });
     }
   }

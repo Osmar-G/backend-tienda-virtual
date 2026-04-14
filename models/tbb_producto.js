@@ -4,16 +4,20 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class tbb_producto extends Model {
     static associate(models) {
+      // Relación con categoría
       tbb_producto.belongsTo(models.tbc_categoria, {
         foreignKey: 'id_categoria',
         as: 'categoria'
       });
+
+      // ✅ MOVIDO AQUÍ
+      tbb_producto.hasMany(models.tbc_carrito_detalle, {
+        foreignKey: 'id_producto',
+        as: 'detalles'
+      });
     }
   }
-tbb_producto.hasMany(models.tbc_carritoDetalle, {
-  foreignKey: 'id_producto',
-  as: 'detalles'
-});
+
   tbb_producto.init({
     id: {
       type: DataTypes.INTEGER,
@@ -49,7 +53,7 @@ tbb_producto.hasMany(models.tbc_carritoDetalle, {
   }, {
     sequelize,
     modelName: 'tbb_producto',
-    tableName: 'tbb_producto', // ✅ IMPORTANTE
+    tableName: 'tbb_producto',
     timestamps: true
   });
 
