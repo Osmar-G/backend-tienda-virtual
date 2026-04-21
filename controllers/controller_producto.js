@@ -10,6 +10,7 @@ module.exports = {
         precio: req.body.precio,
         stock: req.body.stock,
         id_categoria: req.body.id_categoria,
+        url_imagen: req.body.url_imagen
         
     })
     .then(Producto => res.status(200).send(Producto))
@@ -45,7 +46,7 @@ module.exports = {
      precio: req.body.precio,
      stock: req.body.stock,
      id_categoria: req.body.id_categoria,
-     
+     url_imagen: req.body.url_imagen
     },
     {
         where:{

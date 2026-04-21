@@ -6,7 +6,9 @@ const http = require('http');
 require('dotenv').config();
 
 const app = express(); // ✅ primero se crea app
+const cors = require('cors');
 
+app.use(cors());
 // Middlewares
 app.use(logger('dev'));
 app.use(bodyParser.json());
